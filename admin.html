@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Admin — Reine & Toufic</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fdf8f0; --cream2:#f5ede0; --cream3:#ede0cc;
+  --gold:#b89a6a; --gold2:#d4b483; --gold3:#8a6f42;
+  --dark:#2a2118; --dark2:#3d3020;
+  --text:#3a2d1e; --text2:#6b5640; --text3:#9a8060;
+  --white:#fffef9;
+  --err:#c0392b; --ok:#4a7c59;
+  --shadow:rgba(42,33,24,.15);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Cormorant Garamond',serif;background:var(--cream2);color:var(--text);min-height:100vh}
+
+/* ── NAV ── */
+.top-nav{
+  background:var(--dark); padding:1rem 1.5rem;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:200;
+  border-bottom:2px solid var(--gold3);
+}
+.nav-brand{font-style:italic;font-size:clamp(1.1rem,3vw,1.4rem);color:var(--cream2)}
+.nav-brand span{color:var(--gold2)}
+.nav-tabs{display:flex;gap:.3rem}
+.tab-btn{
+  font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.3em;
+  padding:.55rem 1rem; background:transparent;
+  border:1px solid rgba(184,154,106,.3); color:var(--text3);
+  cursor:pointer; text-transform:uppercase; transition:all .3s;
+}
+.tab-btn.act{background:var(--gold3);color:var(--cream2);border-color:var(--gold3)}
+.tab-btn:hover:not(.act){border-color:var(--gold2);color:var(--gold2)}
+
+/* ── LAYOUT ── */
+.main{max-width:900px;margin:0 auto;padding:2rem 1.2rem 4rem}
+.tab-panel{display:none}
+.tab-panel.act{display:block}
+
+/* ── SECTION TITLE ── */
+.sec-title{
+  font-style:italic; font-size:clamp(1.6rem,5vw,2.2rem);
+  color:var(--dark); margin-bottom:.3rem;
+}
+.sec-orn{color:var(--gold);letter-spacing:.5em;margin-bottom:1.8rem;display:block}
+
+/* ── CARD ── */
+.card{
+  background:var(--white); border:1px solid var(--cream3);
+  padding:1.8rem; margin-bottom:1.5rem;
+  box-shadow:0 2px 16px var(--shadow);
+  position:relative;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold2),transparent);
+}
+.card-title{
+  font-family:'Cinzel',serif; font-size:.7rem; letter-spacing:.35em;
+  color:var(--text3); text-transform:uppercase; margin-bottom:1.4rem;
+  padding-bottom:.7rem; border-bottom:1px solid var(--cream3);
+}
+
+/* ── FORM ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr}}
+.form-group{display:flex;flex-direction:column;gap:.4rem}
+.form-group.full{grid-column:1/-1}
+label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;color:var(--text3);text-transform:uppercase}
+input,select,textarea{
+  width:100%; padding:.75rem 1rem;
+  border:1px solid var(--cream3); background:var(--cream);
+  font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--text);
+  outline:none; transition:border-color .3s;
+  appearance:none;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+textarea{resize:vertical;min-height:80px;line-height:1.6}
+.hint{font-size:.82rem;color:var(--text3);font-style:italic;margin-top:.2rem}
+
+/* ── FILE UPLOAD ── */
+.upload-area{
+  border:1px dashed var(--cream3); padding:1.5rem; text-align:center;
+  cursor:pointer; transition:all .3s; background:var(--cream);
+}
+.upload-area:hover{border-color:var(--gold2);background:var(--cream2)}
+.upload-area input{display:none}
+.upload-label{font-style:italic;color:var(--text2);font-size:.95rem}
+.upload-preview{max-height:140px;object-fit:cover;width:100%;margin-top:.8rem;display:none}
+
+/* ── BUTTONS ── */
+.btn{
+  font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.4em;
+  padding:.85rem 2rem; border:none; cursor:pointer;
+  text-transform:uppercase; transition:all .3s; display:inline-block;
+}
+.btn-primary{background:var(--dark);color:var(--cream2)}
+.btn-primary:hover{background:var(--gold3)}
+.btn-gold{background:var(--gold3);color:var(--cream2)}
+.btn-gold:hover{background:var(--dark)}
+.btn-outline{background:transparent;border:1px solid var(--gold3);color:var(--gold3)}
+.btn-outline:hover{background:var(--gold3);color:var(--cream2)}
+.btn-danger{background:var(--err);color:var(--white);font-size:.58rem;padding:.5rem 1rem;letter-spacing:.2em}
+.btn-danger:hover{opacity:.85}
+.btn-sm{padding:.5rem 1rem;font-size:.58rem;letter-spacing:.25em}
+
+/* ── LINK GENERATOR ── */
+.gen-form{display:flex;flex-direction:column;gap:1rem}
+.gen-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){.gen-row{grid-template-columns:1fr}}
+.gen-result{
+  background:var(--cream); border:1px solid var(--cream3);
+  padding:1.2rem; margin-top:1rem; display:none;
+}
+.gen-result-url{
+  font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.1em;
+  word-break:break-all; color:var(--gold3); margin-bottom:.8rem;
+  line-height:1.6;
+}
+.gen-actions{display:flex;gap:.7rem;flex-wrap:wrap}
+
+/* ── LINKS TABLE ── */
+.links-table{width:100%;border-collapse:collapse;font-size:.9rem}
+.links-table th{
+  font-family:'Cinzel',serif; font-size:.58rem; letter-spacing:.3em;
+  padding:.7rem .8rem; border-bottom:1px solid var(--cream3);
+  text-align:left; color:var(--text3); text-transform:uppercase;
+}
+.links-table td{padding:.8rem .8rem;border-bottom:1px solid var(--cream3);vertical-align:middle;color:var(--text2)}
+.links-table tr:last-child td{border-bottom:none}
+.links-table tr:hover td{background:var(--cream2)}
+.badge{
+  font-family:'Cinzel',serif; font-size:.55rem; letter-spacing:.2em;
+  padding:.25rem .6rem; display:inline-block; text-transform:uppercase;
+}
+.badge-yes{background:rgba(74,124,89,.15);color:var(--ok)}
+.badge-no {background:rgba(192,57,43,.12);color:var(--err)}
+.badge-pending{background:var(--cream3);color:var(--text3)}
+.empty-state{text-align:center;padding:3rem;color:var(--text3);font-style:italic;font-size:1.1rem}
+
+/* ── RSVP STATS ── */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+@media(max-width:500px){.stats-grid{grid-template-columns:1fr 1fr}}
+.stat-card{background:var(--white);border:1px solid var(--cream3);padding:1.2rem;text-align:center}
+.stat-num{font-size:clamp(2rem,7vw,3rem);color:var(--dark);line-height:1;display:block}
+.stat-lbl{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.3em;color:var(--text3);text-transform:uppercase;margin-top:.3rem;display:block}
+
+/* ── TOAST ── */
+#toast{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--dark);color:var(--cream2);
+  font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.25em;
+  padding:.8rem 1.8rem;z-index:999;
+  transition:transform .4s ease;pointer-events:none;
+  border-top:2px solid var(--gold);
+}
+#toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ── MUSIC/GALLERY ITEMS ── */
+.gallery-items{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.8rem}
+.gal-thumb{position:relative;aspect-ratio:1;overflow:hidden}
+.gal-thumb img{width:100%;height:100%;object-fit:cover}
+.gal-rm{position:absolute;top:.3rem;right:.3rem;background:rgba(42,33,24,.7);color:var(--cream2);border:none;cursor:pointer;width:22px;height:22px;font-size:.75rem;display:flex;align-items:center;justify-content:center}
+
+/* ── INSTRUCTIONS ── */
+.step{display:flex;gap:1rem;margin-bottom:1.5rem;align-items:flex-start}
+.step-num{
+  font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold3);
+  min-width:2rem;padding-top:.1rem;
+}
+.step-body h4{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.25em;color:var(--dark);margin-bottom:.5rem;text-transform:uppercase}
+.step-body p{font-size:.95rem;color:var(--text2);line-height:1.8}
+.step-body code{
+  font-family:monospace;font-size:.82rem;background:var(--cream2);
+  padding:.15rem .4rem;border:1px solid var(--cream3);color:var(--gold3);word-break:break-all
+}
+.step-body a{color:var(--gold3);text-decoration:underline}
+.note-box{background:var(--cream2);border-left:3px solid var(--gold2);padding:1rem 1.2rem;margin-top:1rem}
+.note-box p{font-size:.92rem;color:var(--text2);line-height:1.8}
+
+/* ── UTIL ── */
+.mt1{margin-top:1rem}.mt2{margin-top:2rem}.flex-gap{display:flex;gap:.8rem;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-brand"><em>Reine <span>&</span> Toufic</em> — Admin</div>
+  <div class="nav-tabs">
+    <button class="tab-btn act" onclick="showTab('settings')">Settings</button>
+    <button class="tab-btn" onclick="showTab('generate')">Generate</button>
+    <button class="tab-btn" onclick="showTab('rsvp')">RSVPs</button>
+    <button class="tab-btn" onclick="showTab('github')">GitHub Guide</button>
+  </div>
+</nav>
+
+<div class="main">
+
+<!-- ══════════════════════════════════════
+     TAB 1: SETTINGS
+══════════════════════════════════════ -->
+<div class="tab-panel act" id="tab-settings">
+  <div class="sec-title">Wedding Settings</div>
+  <span class="sec-orn">✦ ✦ ✦</span>
+
+  <!-- Couple -->
+  <div class="card">
+    <div class="card-title">✦ The Couple</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Groom Name (English)</label><input id="s-groomName" value="Toufic Joud Bejjani"></div>
+      <div class="form-group"><label>Groom Name (Arabic)</label><input id="s-groomNameAr" value="توفيق جود بجاني" dir="rtl" style="font-family:'Amiri',serif"></div>
+      <div class="form-group"><label>Bride Name (English)</label><input id="s-brideName" value="Reine Nabil Abboudy"></div>
+      <div class="form-group"><label>Bride Name (Arabic)</label><input id="s-brideNameAr" value="ريان نبيل عبودي" dir="rtl" style="font-family:'Amiri',serif"></div>
+    </div>
+  </div>
+
+  <!-- Date & Time -->
+  <div class="card">
+    <div class="card-title">✦ Date & Time</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Wedding Date</label><input id="s-weddingDate" type="date" value="2026-09-26"></div>
+      <div class="form-group"><label>Ceremony Time</label><input id="s-ceremonyTime" type="time" value="16:00"></div>
+      <div class="form-group"><label>Reception Time</label><input id="s-receptionTime" type="time" value="19:00"></div>
+      <div class="form-group">
+        <label>Language</label>
+        <select id="s-invLang">
+          <option value="both">English & Arabic</option>
+          <option value="en">English Only</option>
+          <option value="ar">Arabic Only</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Church -->
+  <div class="card">
+    <div class="card-title">✦ Ceremony (Church)</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Church Name (EN)</label><input id="s-churchName" value="Our Lady of the Rosary Church"></div>
+      <div class="form-group"><label>Church Name (AR)</label><input id="s-churchNameAr" value="كنيسة سيدة الوردية" dir="rtl" style="font-family:'Amiri',serif"></div>
+      <div class="form-group full"><label>Church Address</label><input id="s-churchAddress" value="Baabda, Mount Lebanon"></div>
+      <div class="form-group full"><label>Church Google Maps Link</label><input id="s-churchMap" type="url" placeholder="https://maps.google.com/..."></div>
+      <div class="form-group full">
+        <label>Church Photo</label>
+        <div class="upload-area" onclick="trigUpload('churchPhoto')">
+          <input type="file" id="up-churchPhoto" accept="image/*" onchange="handleUpload(this,'churchPhoto','prev-churchPhoto')">
+          <div class="upload-label">Click to upload church photo</div>
+          <img id="prev-churchPhoto" class="upload-preview" alt="">
+        </div>
+        <div class="hint">Or paste a URL:</div>
+        <input id="s-churchPhoto" type="url" placeholder="https://...church-photo.jpg" value="photos/church.png">
+      </div>
+    </div>
+  </div>
+
+  <!-- Venue -->
+  <div class="card">
+    <div class="card-title">✦ Reception (Venue)</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Venue Name (EN)</label><input id="s-venueName" value="Grand Ballroom"></div>
+      <div class="form-group"><label>Venue Name (AR)</label><input id="s-venueNameAr" value="قاعة الأعراس الكبرى" dir="rtl" style="font-family:'Amiri',serif"></div>
+      <div class="form-group full"><label>Venue Address</label><input id="s-venueAddress" value="Beirut, Lebanon"></div>
+      <div class="form-group full"><label>Venue Google Maps Link</label><input id="s-venueMap" type="url" placeholder="https://maps.google.com/..."></div>
+      <div class="form-group full">
+        <label>Venue Photo</label>
+        <div class="upload-area" onclick="trigUpload('venuePhoto')">
+          <input type="file" id="up-venuePhoto" accept="image/*" onchange="handleUpload(this,'venuePhoto','prev-venuePhoto')">
+          <div class="upload-label">Click to upload venue photo</div>
+          <img id="prev-venuePhoto" class="upload-preview" alt="">
+        </div>
+        <div class="hint">Or paste a URL:</div>
+        <input id="s-venuePhoto" type="url" placeholder="https://...venue-photo.jpg" value="photos/venue.JPG">
+      </div>
+    </div>
+  </div>
+
+  <!-- Couple Photo -->
+  <div class="card">
+    <div class="card-title">✦ Couple / Hero Photo</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>Couple Photo (Hero Background)</label>
+        <div class="upload-area" onclick="trigUpload('couplePhoto')">
+          <input type="file" id="up-couplePhoto" accept="image/*" onchange="handleUpload(this,'couplePhoto','prev-couplePhoto')">
+          <div class="upload-label">Click to upload couple photo</div>
+          <img id="prev-couplePhoto" class="upload-preview" alt="">
+        </div>
+        <div class="hint">Or paste a URL:</div>
+        <input id="s-couplePhoto" type="url" placeholder="https://...couple-photo.jpg" value="photos/main banner.jpg">
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery -->
+  <div class="card">
+    <div class="card-title">✦ Gallery Photos (Our Story)</div>
+    <div class="upload-area" onclick="trigUpload('galleryAdd')">
+      <input type="file" id="up-galleryAdd" accept="image/*" multiple onchange="handleGalleryUpload(this)">
+      <div class="upload-label">Click to add gallery photos (multiple allowed)</div>
+    </div>
+    <p class="hint mt1">Or paste URL and press Add:</p>
+    <div style="display:flex;gap:.6rem;margin-top:.4rem">
+      <input id="gal-url-input" type="url" placeholder="https://...photo.jpg" style="flex:1">
+      <button class="btn btn-outline btn-sm" onclick="addGalleryUrl()">Add</button>
+    </div>
+    <div class="gallery-items" id="gallery-preview"></div>
+  </div>
+
+  <!-- Bible Quote -->
+  <div class="card">
+    <div class="card-title">✦ Bible Quote</div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Quote (English)</label><textarea id="s-bibleQuote" rows="3">"Two are better than one, because they have a good return for their labor: If either of them falls down, one can help the other up." — Ecclesiastes 4:9-10</textarea></div>
+      <div class="form-group full"><label>Quote (Arabic)</label><textarea id="s-bibleQuoteAr" rows="3" dir="rtl" style="font-family:'Amiri',serif">"وَالاِثْنَانِ خَيْرٌ مِنَ الْوَاحِدِ، لأَنَّ لَهُمَا أُجْرَةً حَسَنَةً فِي تَعَبِهِمَا" — الجامعة ٤:٩</textarea></div>
+    </div>
+  </div>
+
+  <!-- Music & Gift -->
+  <div class="card">
+    <div class="card-title">✦ Music & Gift</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>Background Music URL (mp3 / direct link)</label>
+        <input id="s-bgMusic" type="url" placeholder="https://...music.mp3">
+        <div class="hint">Use a direct .mp3 URL. YouTube links won't work — try archive.org or dropbox direct links.</div>
+      </div>
+      <div class="form-group full">
+        <label>Wish Account Handle</label>
+        <input id="s-wishAccount" value="@ReineToufikWedding">
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-gap mt2">
+    <button class="btn btn-primary" onclick="saveSettings()">Save All Settings</button>
+    <button class="btn btn-outline" onclick="previewInvite()">Preview Invitation →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TAB 2: GENERATE LINKS
+══════════════════════════════════════ -->
+<div class="tab-panel" id="tab-generate">
+  <div class="sec-title">Generate Invitations</div>
+  <span class="sec-orn">✦ ✦ ✦</span>
+
+  <div class="card">
+    <div class="card-title">✦ Create a Personalised Link</div>
+    <div class="gen-form">
+      <div class="gen-row">
+        <div class="form-group">
+          <label>Guest Name (English)</label>
+          <input id="g-en" placeholder="e.g. Nadia & Georges Khoury">
+        </div>
+        <div class="form-group">
+          <label>Guest Name (Arabic)</label>
+          <input id="g-ar" placeholder="e.g. نادية وجورج خوري" dir="rtl" style="font-family:'Amiri',serif">
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="generateLink()">Generate Link ✦</button>
+    </div>
+
+    <div class="gen-result" id="gen-result">
+      <div class="card-title" style="margin-bottom:.8rem">✦ Your Invitation Link</div>
+      <div class="gen-result-url" id="gen-url"></div>
+      <div class="gen-actions">
+        <button class="btn btn-gold btn-sm" onclick="copyLink()">Copy Link</button>
+        <button class="btn btn-outline btn-sm" onclick="openLink()">Preview</button>
+        <button class="btn btn-outline btn-sm" onclick="shareLink()">Share (WhatsApp)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- All Links -->
+  <div class="card">
+    <div class="card-title">✦ All Generated Links</div>
+    <div id="links-container">
+      <div class="empty-state">No links generated yet.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TAB 3: RSVP DATA
+══════════════════════════════════════ -->
+<div class="tab-panel" id="tab-rsvp">
+  <div class="sec-title">RSVP Responses</div>
+  <span class="sec-orn">✦ ✦ ✦</span>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-num" id="stat-total">0</span>
+      <span class="stat-lbl">Links Sent</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="stat-yes">0</span>
+      <span class="stat-lbl">Attending</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num" id="stat-guests">0</span>
+      <span class="stat-lbl">Total Guests</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">✦ Response Details</div>
+    <div id="rsvp-container">
+      <div class="empty-state">No responses yet.</div>
+    </div>
+  </div>
+
+  <div class="flex-gap mt2">
+    <button class="btn btn-outline" onclick="exportCSV()">Export CSV</button>
+    <button class="btn btn-danger" onclick="clearRsvp()">Clear All RSVPs</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TAB 4: GITHUB GUIDE
+══════════════════════════════════════ -->
+<div class="tab-panel" id="tab-github">
+  <div class="sec-title">Hosting on GitHub Pages</div>
+  <span class="sec-orn">✦ ✦ ✦</span>
+  <p style="color:var(--text2);font-style:italic;margin-bottom:2rem;font-size:1rem;line-height:1.8">
+    Follow these steps to host your invitation online for free — so the link you generate works on any phone or computer, anywhere in the world.
+  </p>
+
+  <div class="card">
+    <div class="card-title">✦ Step-by-Step Guide</div>
+
+    <div class="step">
+      <div class="step-num">1.</div>
+      <div class="step-body">
+        <h4>Create a GitHub Account</h4>
+        <p>Go to <a href="https://github.com" target="_blank">github.com</a> and sign up for a free account if you don't have one. Remember your username — you'll need it.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2.</div>
+      <div class="step-body">
+        <h4>Create a New Repository</h4>
+        <p>Once logged in, click the <strong>+</strong> icon (top right) → <strong>New repository</strong>.<br>
+        Name it exactly: <code>wedding</code> (or any name you like).<br>
+        Set it to <strong>Public</strong>. Check <strong>"Add a README file"</strong>. Click <strong>Create repository</strong>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3.</div>
+      <div class="step-body">
+        <h4>Upload Your Files</h4>
+        <p>In your new repository, click <strong>Add file → Upload files</strong>.<br>
+        Upload both files you downloaded:<br>
+        &nbsp;• <code>invite.html</code> — the wedding invitation<br>
+        &nbsp;• <code>admin.html</code> — this admin panel<br>
+        Scroll down and click <strong>Commit changes</strong>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4.</div>
+      <div class="step-body">
+        <h4>Enable GitHub Pages</h4>
+        <p>Go to your repository → click <strong>Settings</strong> (top menu).<br>
+        In the left sidebar click <strong>Pages</strong>.<br>
+        Under <em>Source</em>, select <strong>Deploy from a branch</strong>.<br>
+        Under <em>Branch</em>, select <strong>main</strong> and <strong>/ (root)</strong>. Click <strong>Save</strong>.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5.</div>
+      <div class="step-body">
+        <h4>Your Site is Live!</h4>
+        <p>After 1–2 minutes, your invitation is online at:<br>
+        <code>https://YOUR-USERNAME.github.io/wedding/invite.html</code><br>
+        And your admin panel at:<br>
+        <code>https://YOUR-USERNAME.github.io/wedding/admin.html</code></p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">6.</div>
+      <div class="step-body">
+        <h4>Generate & Share Links</h4>
+        <p>Open your admin panel URL in your browser. Go to the <strong>Settings</strong> tab and fill in your wedding details (save them). Then go to the <strong>Generate</strong> tab, enter a guest's name, and copy the personalised link to send them via WhatsApp or any messenger.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">7.</div>
+      <div class="step-body">
+        <h4>Add Photos (Important!)</h4>
+        <p>For photos (church, venue, couple), you have two options:<br>
+        <strong>Option A:</strong> Upload photos to your GitHub repo in a folder called <code>photos/</code> and use relative paths like <code>photos/church.jpg</code>.<br>
+        <strong>Option B:</strong> Upload photos to a free host like <a href="https://imgbb.com" target="_blank">imgbb.com</a> or <a href="https://postimages.org" target="_blank">postimages.org</a> and paste the direct link in Settings.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">8.</div>
+      <div class="step-body">
+        <h4>Check RSVP Responses</h4>
+        <p>Open your admin panel, go to the <strong>RSVPs</strong> tab to see who responded and how many guests they confirmed.<br>
+        <strong>Note:</strong> RSVPs are stored in each browser's local storage. To collect them centrally, you'll need to share data or use the Export CSV option after guests respond on their devices.</p>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <p><strong>✦ Tip for RSVPs across devices:</strong> Since responses are stored locally, ask guests to RSVP and then you can collect responses when you check from the same device. For a shared RSVP database, consider adding a free <a href="https://formspree.io" target="_blank">Formspree</a> integration — contact a developer for this upgrade.</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- .main -->
+
+<script>
+/* ════════════════════════════════════════
+   CONSTANTS
+════════════════════════════════════════ */
+const DBK='wds_settings', RK='wds_rsvp', LK='wds_links';
+
+/* ════════════════════════════════════════
+   TABS
+════════════════════════════════════════ */
+function showTab(name){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('act'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('act'));
+  document.getElementById('tab-'+name).classList.add('act');
+  event.currentTarget.classList.add('act');
+  if(name==='generate')renderLinks();
+  if(name==='rsvp')renderRsvp();
+}
+
+/* ════════════════════════════════════════
+   SETTINGS
+════════════════════════════════════════ */
+const FIELDS=['groomName','groomNameAr','brideName','brideNameAr','weddingDate','ceremonyTime','receptionTime','invLang','churchName','churchNameAr','churchAddress','churchMap','churchPhoto','venueName','venueNameAr','venueAddress','venueMap','venuePhoto','couplePhoto','bibleQuote','bibleQuoteAr','bgMusic','wishAccount'];
+
+async function loadSettings(){
+  try{
+    const s=JSON.parse(localStorage.getItem(DBK)||'{}');
+    // Text fields only
+    const PHOTO_FIELDS=['churchPhoto','venuePhoto','couplePhoto'];
+    FIELDS.filter(f=>!PHOTO_FIELDS.includes(f)).forEach(k=>{
+      const el=document.getElementById('s-'+k);
+      if(el&&s[k]!==undefined)el.value=s[k];
+    });
+    // Photo fields: try IDB blob first, fall back to stored URL
+    for(const k of PHOTO_FIELDS){
+      const idbKey='photo_'+k;
+      const blob=await idbGet(idbKey).catch(()=>null);
+      const urlInput=document.getElementById('s-'+k);
+      const prev=document.getElementById('prev-'+k);
+      if(blob){
+        const objUrl=URL.createObjectURL(blob);
+        if(prev){prev.src=objUrl;prev.style.display='block';prev.dataset.idbKey=idbKey}
+        if(urlInput) urlInput.dataset.idbKey=idbKey;
+      } else if(s[k]){
+        if(urlInput) urlInput.value=s[k];
+        if(prev){prev.src=s[k];prev.style.display='block'}
+      }
+    }
+    // Gallery URL-based
+    (s.galleryPhotos||[]).forEach(url=>addGalleryThumb(url,null));
+    // Gallery IDB-based
+    for(const key of (s.galleryIdbKeys||[])){
+      const blob=await idbGet(key).catch(()=>null);
+      if(blob) addGalleryThumb(URL.createObjectURL(blob),key);
+    }
+  }catch(e){console.error('loadSettings',e)}
+}
+
+/* ════════════════════════════════════════
+   INDEXEDDB — stores compressed photo blobs
+   (no 5 MB quota like localStorage)
+════════════════════════════════════════ */
+let idb=null;
+function openIDB(){
+  return new Promise((res,rej)=>{
+    if(idb)return res(idb);
+    const req=indexedDB.open('wds_photos',1);
+    req.onupgradeneeded=e=>{e.target.result.createObjectStore('photos')};
+    req.onsuccess=e=>{idb=e.target.result;res(idb)};
+    req.onerror=rej;
+  });
+}
+async function idbSet(key,blob){
+  const db=await openIDB();
+  return new Promise((res,rej)=>{
+    const tx=db.transaction('photos','readwrite');
+    tx.objectStore('photos').put(blob,key);
+    tx.oncomplete=res; tx.onerror=rej;
+  });
+}
+async function idbGet(key){
+  const db=await openIDB();
+  return new Promise((res,rej)=>{
+    const tx=db.transaction('photos','readonly');
+    const req=tx.objectStore('photos').get(key);
+    req.onsuccess=()=>res(req.result||null);
+    req.onerror=rej;
+  });
+}
+async function idbDel(key){
+  const db=await openIDB();
+  return new Promise((res,rej)=>{
+    const tx=db.transaction('photos','readwrite');
+    tx.objectStore('photos').delete(key);
+    tx.oncomplete=res; tx.onerror=rej;
+  });
+}
+
+/* Compress image file → blob (max 1200px wide, 0.82 quality) */
+function compressImage(file, maxW=1200, quality=0.82){
+  return new Promise(res=>{
+    const img=new Image(), url=URL.createObjectURL(file);
+    img.onload=()=>{
+      const scale=Math.min(1, maxW/img.width);
+      const w=Math.round(img.width*scale), h=Math.round(img.height*scale);
+      const c=document.createElement('canvas'); c.width=w; c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      URL.revokeObjectURL(url);
+      c.toBlob(b=>res(b),'image/jpeg',quality);
+    };
+    img.src=url;
+  });
+}
+
+/* ════════════════════════════════════════
+   SAVE / LOAD — text settings only in LS
+   photos live in IndexedDB
+════════════════════════════════════════ */
+// Photo fields kept separately (stored in IDB, NOT localStorage)
+const PHOTO_FIELDS=['churchPhoto','venuePhoto','couplePhoto'];
+// Text-only fields safe for localStorage
+const TEXT_FIELDS=FIELDS.filter(f=>!PHOTO_FIELDS.includes(f));
+
+function saveSettings(){
+  const s={};
+  // Text-only fields
+  TEXT_FIELDS.forEach(k=>{const el=document.getElementById('s-'+k);if(el)s[k]=el.value});
+  // Photo URL fields: only save if user typed a URL (not an IDB upload)
+  PHOTO_FIELDS.forEach(k=>{
+    const el=document.getElementById('s-'+k);
+    if(el&&!el.dataset.idbKey&&el.value&&el.value.startsWith('http'))s[k]=el.value;
+  });
+  // Gallery: separate URL entries vs IDB keys
+  s.galleryPhotos=Array.from(document.querySelectorAll('#gallery-preview img'))
+    .map(i=>i.dataset.idbKey?null:i.src).filter(v=>v&&v.startsWith('http'));
+  s.galleryIdbKeys=Array.from(document.querySelectorAll('#gallery-preview img'))
+    .map(i=>i.dataset.idbKey).filter(Boolean);
+  try{
+    localStorage.setItem(DBK,JSON.stringify(s));
+    toast('Settings saved ✦');
+  }catch(e){
+    toast('⚠ Save failed — use photo URLs instead of file uploads for GitHub hosting.');
+    console.error(e);
+  }
+}
+
+function previewInvite(){
+  saveSettings();
+  window.open('invite.html','_blank');
+}
+
+/* ════════════════════════════════════════
+   PHOTO UPLOAD — compress → IDB
+════════════════════════════════════════ */
+function trigUpload(id){document.getElementById('up-'+id).click()}
+
+async function handleUpload(input,field,prevId){
+  const file=input.files[0]; if(!file)return;
+  toast('Compressing photo…');
+  const blob=await compressImage(file);
+  const key='photo_'+field;
+  await idbSet(key,blob);
+  // show preview via object URL
+  const objUrl=URL.createObjectURL(blob);
+  // clear the URL text field (we use IDB now)
+  const urlInput=document.getElementById('s-'+field);
+  if(urlInput) urlInput.value='';
+  const prev=document.getElementById(prevId);
+  if(prev){prev.src=objUrl;prev.style.display='block';prev.dataset.idbKey=key}
+  // store idb key reference so saveSettings knows
+  if(urlInput) urlInput.dataset.idbKey=key;
+  toast('Photo ready ✦');
+}
+
+async function handleGalleryUpload(input){
+  for(const file of Array.from(input.files)){
+    toast('Compressing…');
+    const blob=await compressImage(file,1000,0.80);
+    const key='gal_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+    await idbSet(key,blob);
+    const objUrl=URL.createObjectURL(blob);
+    addGalleryThumb(objUrl,key);
+  }
+  toast('Photos added ✦');
+}
+
+function addGalleryUrl(){
+  const v=document.getElementById('gal-url-input').value.trim();
+  if(!v)return;
+  addGalleryThumb(v,null);
+  document.getElementById('gal-url-input').value='';
+}
+
+function addGalleryThumb(url,idbKey){
+  const container=document.getElementById('gallery-preview');
+  const div=document.createElement('div'); div.className='gal-thumb';
+  const img=document.createElement('img'); img.src=url; img.alt='';
+  if(idbKey) img.dataset.idbKey=idbKey;
+  const rm=document.createElement('button'); rm.className='gal-rm'; rm.textContent='✕';
+  rm.onclick=async()=>{if(idbKey)await idbDel(idbKey);div.remove()};
+  div.appendChild(img); div.appendChild(rm);
+  container.appendChild(div);
+}
+
+/* ════════════════════════════════════════
+   LINK GENERATOR
+════════════════════════════════════════ */
+let lastGenUrl='';
+function generateLink(){
+  const en=(document.getElementById('g-en').value||'').trim();
+  const ar=(document.getElementById('g-ar').value||'').trim();
+  if(!en&&!ar){toast('Please enter at least one guest name');return}
+
+  const id='inv_'+Date.now();
+  const base=location.href.replace('admin.html','invite.html');
+  const params=new URLSearchParams({id});
+  if(en)params.set('gn',en);
+  if(ar)params.set('gna',ar);
+  lastGenUrl=base+'?'+params.toString();
+
+  // Save to links list
+  const ls=JSON.parse(localStorage.getItem(LK)||'[]');
+  ls.unshift({id,guestEn:en,guestAr:ar,url:lastGenUrl,created:new Date().toISOString(),rsvp:null,guests:0});
+  localStorage.setItem(LK,JSON.stringify(ls));
+
+  document.getElementById('gen-url').textContent=lastGenUrl;
+  document.getElementById('gen-result').style.display='block';
+  renderLinks();
+}
+
+function copyLink(){
+  navigator.clipboard.writeText(lastGenUrl).then(()=>toast('Link copied! ✦')).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=lastGenUrl;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Link copied! ✦');
+  });
+}
+
+function openLink(){window.open(lastGenUrl,'_blank')}
+function shareLink(){
+  const s=getSettingsQuick();
+  const fn=s.groomName?s.groomName.split(' ')[0]:'Toufic';
+  const gn=s.brideName?s.brideName.split(' ')[0]:'Reine';
+  const msg=encodeURIComponent(`You are cordially invited to the wedding of ${gn} & ${fn} 🥂\n\nYour personal invitation: ${lastGenUrl}`);
+  window.open(`https://wa.me/?text=${msg}`,'_blank');
+}
+
+function getSettingsQuick(){
+  try{return JSON.parse(localStorage.getItem(DBK)||'{}')}catch{return{}}
+}
+
+/* ════════════════════════════════════════
+   RENDER LINKS TABLE
+════════════════════════════════════════ */
+function renderLinks(){
+  const ls=JSON.parse(localStorage.getItem(LK)||'[]');
+  const container=document.getElementById('links-container');
+  if(!ls.length){container.innerHTML='<div class="empty-state">No links generated yet.</div>';return}
+
+  const rows=ls.map(l=>{
+    const date=new Date(l.created).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+    let badge='<span class="badge badge-pending">Pending</span>';
+    if(l.rsvp==='yes')badge=`<span class="badge badge-yes">Attending · ${l.guests} guest${l.guests>1?'s':''}</span>`;
+    if(l.rsvp==='no') badge='<span class="badge badge-no">Declined</span>';
+    return`<tr>
+      <td><strong>${l.guestEn||'—'}</strong>${l.guestAr?`<br><span style="font-family:'Amiri',serif;direction:rtl;font-size:.9em;color:var(--text3)">${l.guestAr}</span>`:''}</td>
+      <td>${badge}</td>
+      <td style="font-size:.82rem;color:var(--text3)">${date}</td>
+      <td>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <button class="btn btn-outline btn-sm" onclick="copySpecific('${l.url}')">Copy</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteLink('${l.id}')">✕</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+
+  container.innerHTML=`<div style="overflow-x:auto"><table class="links-table">
+    <thead><tr>
+      <th>Guest</th><th>RSVP</th><th>Created</th><th>Actions</th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+
+function copySpecific(url){
+  navigator.clipboard.writeText(url).then(()=>toast('Link copied! ✦')).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=url;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Copied!');
+  });
+}
+
+function deleteLink(id){
+  if(!confirm('Delete this link?'))return;
+  let ls=JSON.parse(localStorage.getItem(LK)||'[]');
+  ls=ls.filter(x=>x.id!==id);
+  localStorage.setItem(LK,JSON.stringify(ls));
+  renderLinks();
+  toast('Link deleted');
+}
+
+/* ════════════════════════════════════════
+   RSVP TAB
+════════════════════════════════════════ */
+function renderRsvp(){
+  const rs=JSON.parse(localStorage.getItem(RK)||'{}');
+  const ls=JSON.parse(localStorage.getItem(LK)||'[]');
+  const entries=Object.entries(rs);
+
+  // Stats
+  const total=ls.length;
+  const yes=entries.filter(([,v])=>v.status==='yes').length;
+  const guests=entries.filter(([,v])=>v.status==='yes').reduce((s,[,v])=>s+v.guests,0);
+  document.getElementById('stat-total').textContent=total;
+  document.getElementById('stat-yes').textContent=yes;
+  document.getElementById('stat-guests').textContent=guests;
+
+  const container=document.getElementById('rsvp-container');
+  if(!entries.length){container.innerHTML='<div class="empty-state">No responses received yet.</div>';return}
+
+  const rows=entries.map(([id,v])=>{
+    const date=new Date(v.date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'2-digit',hour:'2-digit',minute:'2-digit'});
+    let badge=v.status==='yes'?`<span class="badge badge-yes">Attending · ${v.guests} guest${v.guests>1?'s':''}</span>`:'<span class="badge badge-no">Declined</span>';
+    return`<tr>
+      <td><strong>${v.guestEn||id}</strong>${v.guestAr?`<br><span style="font-family:'Amiri',serif;direction:rtl;font-size:.9em;color:var(--text3)">${v.guestAr}</span>`:''}</td>
+      <td>${badge}</td>
+      <td style="font-size:.82rem;color:var(--text3)">${date}</td>
+    </tr>`;
+  }).join('');
+
+  container.innerHTML=`<div style="overflow-x:auto"><table class="links-table">
+    <thead><tr><th>Guest</th><th>Response</th><th>Date</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+
+function exportCSV(){
+  const rs=JSON.parse(localStorage.getItem(RK)||'{}');
+  const entries=Object.entries(rs);
+  if(!entries.length){toast('No data to export');return}
+  const header='Guest (EN),Guest (AR),Status,Guests,Date\n';
+  const rows=entries.map(([,v])=>`"${v.guestEn||''}","${v.guestAr||''}","${v.status}","${v.guests}","${v.date}"`).join('\n');
+  const blob=new Blob([header+rows],{type:'text/csv'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='wedding-rsvp.csv';
+  a.click();
+  toast('CSV exported ✦');
+}
+
+function clearRsvp(){
+  if(!confirm('Clear ALL RSVP responses? This cannot be undone.'))return;
+  localStorage.removeItem(RK);
+  renderRsvp();
+  toast('RSVPs cleared');
+}
+
+/* ════════════════════════════════════════
+   TOAST
+════════════════════════════════════════ */
+let toastTimer;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2800);
+}
+
+/* ════════════════════════════════════════
+   INIT
+════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded',()=>{
+  loadSettings().then(()=>{
+    // Pre-fill gallery URL inputs if gallery is still empty
+    const s=JSON.parse(localStorage.getItem(DBK)||'{}');
+    if(!(s.galleryPhotos||[]).length && !(s.galleryIdbKeys||[]).length){
+      const defaults=[
+        'photos/Our Story 1.jpg',
+        'photos/Our Story 2.jpg',
+        'photos/Our Story 3.jpg',
+        'photos/Our Story 4.jpg'
+      ];
+      defaults.forEach(url=>addGalleryThumb(url,null));
+    }
+  });
+  renderLinks();
+});
+</script>
+</body>
+</html>
