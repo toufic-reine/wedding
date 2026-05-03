@@ -33,14 +33,6 @@
   "couplePhotoClose": "photos/Our Story 2.jpg",
   "galleryPhotos": [],
   "galleryIdbKeys": [],
-  "guests": {
-    "Rony-Abboudys-Family": {
-      "en": "Rony Abboudy's Family",
-      "ar": "عائلة روني عبودي الكريمة",
-      "members": [
-        "Rony"
-      ]
-    }
-  },
+  "guests": {},
   "_baseUrl": "https://toufic-reine.github.io/wedding/"
 }
