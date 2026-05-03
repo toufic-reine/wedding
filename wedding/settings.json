@@ -34,6 +34,14 @@
   "galleryPhotos": [],
   "galleryIdbKeys": [],
   "guests": {
+    "Ryan-Abboudys-Family": {
+      "en": "Ryan Abboudy's Family",
+      "ar": "عائلة ريان عبودي الكريمة",
+      "members": [
+        "Ryan",
+        "Wafaa"
+      ]
+    },
     "Rony-Abboudys-Family": {
       "en": "Rony Abboudy's Family",
       "ar": "عائلة روني عبودي الكريمة",
