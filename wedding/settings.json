@@ -1,0 +1,46 @@
+{
+  "groomName": "Toufic Joud Bejjani",
+  "groomNameAr": "توفيق جود بجاني",
+  "groomFamily": "Bejjani",
+  "groomFamilyAr": "بجاني",
+  "brideName": "Reine Nabil Abboudy",
+  "brideNameAr": "رين نبيل عبودي",
+  "brideFamily": "Abboudy",
+  "brideFamilyAr": "عبودي",
+  "weddingDate": "2026-09-26",
+  "ceremonyTime": "16:00",
+  "receptionTime": "19:00",
+  "invLang": "both",
+  "churchName": "Saint Antoine Church - Kahhale",
+  "churchNameAr": "كنيسة مار أنطونيوس - كحالة",
+  "churchAddress": "Kahhale, Mount Lebanon",
+  "churchMap": "https://maps.app.goo.gl/gd5n6vpsy8DCcuY3A",
+  "venueName": "La Salle Venue",
+  "venueNameAr": "",
+  "venueAddress": "Rmayli, Lebanon",
+  "venueMap": "https://maps.app.goo.gl/Y7eYsg2XNYKJCdKa6",
+  "bibleQuote": "“You who were a guest at the wedding of Cana, be the one who invites at our wedding.”",
+  "bibleQuoteAr": "\"يا مَنْ في عُرْسِ قانا كُنْتَ ضَيْفًا، كُنْ في عُرْسِنا صاحِبَ الدَّعْوَةِ.\"",
+  "bgMusic": "photos/music.mp3",
+  "wishAccount": "03 757 194",
+  "rsvpEmail": "wassimbaba.1996@gmail.com",
+  "rsvpWebhook": "https://script.google.com/macros/s/AKfycbxQFksN3gztt-iIqpemeYXW1h1S-hL7xagwNFiOnl0pfksW0Hkz4vEO2vUgNYAUSL-J1A/exec",
+  "ghRepo": "toufic-reine/wedding",
+  "churchPhoto": "photos/church.png",
+  "venuePhoto": "photos/venue.JPG",
+  "couplePhoto": "photos/main banner.jpg",
+  "couplePhotoMid": "photos/Our Story 3.jpg",
+  "couplePhotoClose": "photos/Our Story 2.jpg",
+  "galleryPhotos": [],
+  "galleryIdbKeys": [],
+  "guests": {
+    "Rony-Abboudys-Family": {
+      "en": "Rony Abboudy's Family",
+      "ar": "عائلة روني عبودي الكريمة",
+      "members": [
+        "Rony"
+      ]
+    }
+  },
+  "_baseUrl": "https://toufic-reine.github.io/wedding/"
+}
