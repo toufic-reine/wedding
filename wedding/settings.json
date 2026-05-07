@@ -19,6 +19,7 @@
   "venueNameAr": "",
   "venueAddress": "Rmayli, Lebanon",
   "venueMap": "https://maps.app.goo.gl/Y7eYsg2XNYKJCdKa6",
+  "photoInterval": "3",
   "bibleQuote": "“You who were a guest at the wedding of Cana, be the one who invites at our wedding.”",
   "bibleQuoteAr": "\"يا مَنْ في عُرْسِ قانا كُنْتَ ضَيْفًا، كُنْ في عُرْسِنا صاحِبَ الدَّعْوَةِ.\"",
   "bgMusic": "photos/music.mp3",
@@ -29,16 +30,17 @@
   "churchPhoto": "photos/church.png",
   "venuePhoto": "photos/venue.JPG",
   "couplePhoto": "photos/main banner.jpg",
+  "couplePhoto2": "photos/Our Story 3.jpg",
+  "couplePhoto3": "photos/Our Story 2.jpg",
   "couplePhotoMid": "photos/Our Story 3.jpg",
+  "couplePhotoMid2": "photos/Our Story 2.jpg",
+  "couplePhotoMid3": "photos/main banner.jpg",
   "couplePhotoClose": "photos/Our Story 2.jpg",
+  "couplePhotoClose2": "photos/main banner.jpg",
+  "couplePhotoClose3": "photos/Our Story 3.jpg",
   "galleryPhotos": [],
   "galleryIdbKeys": [],
   "guests": {
-    "Wassim-Al-Baba": {
-      "en": "Wassim Al Baba",
-      "ar": "الصديق الصدوق وسيم البابا المحترم",
-      "members": []
-    },
     "Ryan-Abboudys-Family": {
       "en": "Ryan Abboudy's Family",
       "ar": "عائلة ريان عبودي الكريمة",
