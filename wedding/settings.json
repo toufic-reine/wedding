@@ -43,6 +43,14 @@
   "galleryPhotos": [],
   "galleryIdbKeys": [],
   "guests": {
+    "Reinee-Tet": {
+      "en": "Reinee Tet",
+      "ar": "Test",
+      "members": [
+        "Reione",
+        "Wassim"
+      ]
+    },
     "Test": {
       "en": "Test",
       "ar": "Test",
