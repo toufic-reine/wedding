@@ -54,6 +54,13 @@
     "photos/Wedding 16.jpg"
   ],
   "guests": {
+    "Mona-Family": {
+      "en": "Mona Family",
+      "members": [
+        "Fadi",
+        "Mona"
+      ]
+    },
     "NadaKahhaleFamily": {
       "en": "Nada Kahhale Family",
       "members": [
