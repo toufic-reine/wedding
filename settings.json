@@ -53,15 +53,7 @@
     "photos/Wedding 15.jpg",
     "photos/Wedding 16.jpg"
   ],
-  "guests": {
-    "Wisso-Al-Baba-Family": {
-      "en": "Wisso Al Baba Family",
-      "members": [
-        "Wassim",
-        "Karen"
-      ]
-    }
-  },
+  "guests": {},
   "_baseUrl": "https://toufic-reine.github.io/wedding/",
   "_repo": "toufic-reine/wedding"
 }
