@@ -53,7 +53,15 @@
     "photos/Wedding 15.jpg",
     "photos/Wedding 16.jpg"
   ],
-  "guests": {},
+  "guests": {
+    "Fadi-Al-Baba-Family": {
+      "en": "Fadi Al Baba Family",
+      "members": [
+        "Fadi",
+        "Mona"
+      ]
+    }
+  },
   "_baseUrl": "https://toufic-reine.github.io/wedding/",
   "_repo": "toufic-reine/wedding"
 }
