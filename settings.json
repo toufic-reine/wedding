@@ -58,6 +58,13 @@
     "photos/Wedding 16.jpg"
   ],
   "guests": {
+    "Karam-Saadallah-Family": {
+      "en": "Karam Saadallah Family",
+      "members": [
+        "Karam",
+        "Karen"
+      ]
+    },
     "Emad-Saadallah-Family": {
       "en": "Emad Saadallah Family",
       "members": [
