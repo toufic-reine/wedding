@@ -29,7 +29,7 @@
   "closingCaption": "\"What God has joined together, let no one separate.\"",
   "invLang": "both",
   "photoInterval": "3",
-  "rsvpDeadline": "September 1, 2026",
+  "rsvpDeadline": "2026-09-01",
   "rsvpPhone": "76051470",
   "rsvpWebhook": "https://script.google.com/macros/s/AKfycbx5tJi4NSBhOR2i7-c9e4m_i0q7axQ7UZcanW1Ob6g4hyLg3sHFl-NxX3ORW7B5X7RGPA/exec",
   "formspreeId": "mdabaapd",
@@ -43,19 +43,19 @@
   "photos": [
     "photos/Wedding 1.jpg",
     "photos/Wedding 2.jpg",
-    "photos/Wedding 3.jpg",
-    "photos/Wedding 4.jpg",
+    "photos/Wedding 10.jpg",
+    "photos/Wedding 13.jpg",
     "photos/Wedding 5.jpg",
     "photos/Wedding 6.jpg",
-    "photos/Wedding 7.jpg",
-    "photos/Wedding 8.jpg",
-    "photos/Wedding 9.jpg",
-    "photos/Wedding 10.jpg",
+    "photos/Wedding 16.jpg",
     "photos/Wedding 11.jpg",
+    "photos/Wedding 9.jpg",
+    "photos/Wedding 3.jpg",
+    "photos/Wedding 8.jpg",
     "photos/Wedding 14.jpg",
-    "photos/Wedding 13.jpg",
+    "photos/Wedding 4.jpg",
     "photos/Wedding 15.jpg",
-    "photos/Wedding 16.jpg"
+    "photos/Wedding 7.jpg"
   ],
   "guests": {
     "Karam-Saadallah-Family": {
