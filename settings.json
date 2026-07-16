@@ -57,15 +57,7 @@
     "photos/Wedding 15.jpg",
     "photos/Wedding 7.jpg"
   ],
-  "guests": {
-    "Emad-Saadallah-Family": {
-      "en": "Emad Saadallah Family",
-      "members": [
-        "Emad",
-        "Nada"
-      ]
-    }
-  },
+  "guests": {},
   "_baseUrl": "https://toufic-reine.github.io/wedding/",
   "_repo": "toufic-reine/wedding"
 }
