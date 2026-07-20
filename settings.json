@@ -59,7 +59,15 @@
     "photos/Wedding 18.jpg",
     "photos/Wedding 17.jpg"
   ],
-  "guests": {},
+  "guests": {
+    "Zaher-Houneineh-Family": {
+      "en": "Zaher Houneineh Family",
+      "members": [
+        "Zaher",
+        "Mira"
+      ]
+    }
+  },
   "_baseUrl": "https://toufic-reine.github.io/wedding/",
   "_repo": "toufic-reine/wedding"
 }
