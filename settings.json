@@ -59,15 +59,7 @@
     "photos/Wedding 18.jpg",
     "photos/Wedding 17.jpg"
   ],
-  "guests": {
-    "Baba-Wassim-Family": {
-      "en": "Baba Wassim Family",
-      "members": [
-        "Wassim",
-        "Karen"
-      ]
-    }
-  },
+  "guests": {},
   "_baseUrl": "https://toufic-reine.github.io/wedding/",
   "_repo": "toufic-reine/wedding"
 }
