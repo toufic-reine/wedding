@@ -8,8 +8,8 @@
   "brideFamily": "Abboudy",
   "brideFamilyAr": "عبودي",
   "weddingDate": "2026-09-26",
-  "ceremonyTime": "16:00",
-  "receptionTime": "19:00",
+  "ceremonyTime": "18:00",
+  "receptionTime": "20:00",
   "churchName": "Saint Antoine Church",
   "churchNameAr": "كنيسة مار أنطونيوس",
   "churchAddress": "Kahale, Lebanon",
@@ -45,7 +45,7 @@
     "photos/Wedding 2.jpg",
     "photos/Wedding 10.jpg",
     "photos/Wedding 13.jpg",
-    "photos/Wedding 5.jpg",
+    "photos/Wedding 19.jpg",
     "photos/Wedding 6.jpg",
     "photos/Wedding 16.jpg",
     "photos/Wedding 11.jpg",
@@ -55,7 +55,9 @@
     "photos/Wedding 14.jpg",
     "photos/Wedding 4.jpg",
     "photos/Wedding 15.jpg",
-    "photos/Wedding 7.jpg"
+    "photos/Wedding 7.jpg",
+    "photos/Wedding 18.jpg",
+    "photos/Wedding 17.jpg"
   ],
   "guests": {
     "Fadi-Kahhale-Family": {
